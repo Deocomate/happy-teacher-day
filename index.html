@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Teachers' Day - Mr. Long</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;900&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0ea5e9', // Sky 500
+                        secondary: '#6366f1', // Indigo 500
+                        dark: '#1e293b', // Slate 800
+                        light: '#f8fafc', // Slate 50
+                    },
+                    fontFamily: {
+                        sans: ['"Be Vietnam Pro"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-light text-dark overflow-hidden h-screen w-screen relative">
+
+    <!-- Audio -->
+    <audio id="bg-music" loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Music Control -->
+    <button id="music-control" title="Toggle Music"
+        class="fixed top-5 right-5 z-50 w-10 h-10 bg-white/80 backdrop-blur shadow-md rounded-full flex items-center justify-center cursor-pointer hover:scale-110 transition-transform text-primary hidden">
+        <i id="music-icon" class="fas fa-volume-up"></i>
+    </button>
+
+    <!-- Background Decoration -->
+    <div class="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
+        <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-blue-50 via-white to-indigo-50"></div>
+        <div
+            class="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-blue-200/30 rounded-full blur-3xl animate-float">
+        </div>
+        <div
+            class="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] bg-indigo-200/30 rounded-full blur-3xl animate-float-delayed">
+        </div>
+    </div>
+
+    <!-- Step 1: Landing / Surprise -->
+    <div id="step-1"
+        class="step-section active fixed inset-0 flex-col items-center justify-center text-center p-4 z-40">
+        <div class="space-y-8 max-w-2xl">
+            <div class="inline-block p-4 rounded-full bg-white shadow-xl mb-4 animate-bounce">
+                <i class="fas fa-gift text-4xl text-primary"></i>
+            </div>
+            <h1 class="text-4xl md:text-6xl font-bold text-dark">
+                Chào mừng <span class="gradient-text">20/11</span>
+            </h1>
+            <p class="text-slate-500 text-lg md:text-xl">
+                Lớp LE353 có một món quà đặc biệt dành tặng thầy Long!
+            </p>
+            <button id="btn-start"
+                class="group relative px-8 py-4 bg-gradient-to-r from-primary to-secondary text-white font-bold rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all">
+                <span class="flex items-center gap-2">
+                    Mở quà ngay <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                </span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Step 2: Hero / Intro -->
+    <div id="step-2" class="step-section fixed inset-0 flex-col items-center justify-center p-4 z-30">
+        <div class="container mx-auto max-w-6xl flex flex-col md:flex-row items-center gap-12">
+            <!-- Image Side -->
+            <div class="w-full md:w-1/2 flex justify-center order-1 md:order-1">
+                <div class="relative w-72 h-72 md:w-96 md:h-96">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-tr from-primary to-secondary rounded-[2rem] rotate-6 opacity-20">
+                    </div>
+                    <div
+                        class="absolute inset-0 bg-white rounded-[2rem] shadow-2xl overflow-hidden border-4 border-white -rotate-3 transition-transform hover:rotate-0 duration-500">
+                        <img src="images/body_thay_Long_dep_trai.jpg" alt="Thầy Long"
+                            class="w-full h-full object-cover">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Text Side -->
+            <div class="w-full md:w-1/2 text-center md:text-left space-y-6 order-2 md:order-2">
+                <div
+                    class="inline-block px-4 py-1 rounded-full bg-blue-100 text-primary text-sm font-bold tracking-wider uppercase">
+                    Happy Teachers' Day
+                </div>
+                <h2 class="text-5xl md:text-7xl font-black text-dark leading-tight">
+                    MR. <span class="gradient-text">LONG</span>
+                </h2>
+                <div class="text-2xl text-slate-600 font-light">
+                    Biệt danh: <span class="font-bold text-dark">Lòng giáo thây</span>
+                </div>
+                <div class="h-12">
+                    <span id="typed-text" class="text-xl md:text-2xl text-primary font-mono font-medium"></span>
+                </div>
+
+                <div class="pt-8 flex justify-center md:justify-start">
+                    <button onclick="nextStep(3)"
+                        class="px-8 py-3 bg-white border-2 border-primary text-primary font-bold rounded-full hover:bg-primary hover:text-white transition-colors shadow-md flex items-center gap-2">
+                        Xem khoảnh khắc <i class="fas fa-camera"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Step 3: Gallery -->
+    <div id="step-3" class="step-section fixed inset-0 flex-col items-center justify-center p-4 z-20 overflow-y-auto">
+        <div class="container mx-auto max-w-6xl py-10">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl md:text-4xl font-bold text-dark mb-2">Khoảnh khắc <span class="text-primary">Đáng
+                        Nhớ</span></h2>
+                <p class="text-slate-500">Những hình ảnh tuyệt vời của thầy</p>
+            </div>
+
+            <div
+                class="grid grid-cols-1 md:grid-cols-3 gap-6 px-4 md:px-0 max-h-[60vh] overflow-y-auto custom-scrollbar pb-4">
+                <!-- Gallery Items -->
+                <div class="group relative rounded-2xl overflow-hidden shadow-lg aspect-[3/4]">
+                    <img src="images/1.jpg"
+                        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                        <span class="text-white font-medium">Phong thái đĩnh đạc</span>
+                    </div>
+                </div>
+                <div class="group relative rounded-2xl overflow-hidden shadow-lg aspect-[3/4]">
+                    <img src="images/2.jpg"
+                        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                        <span class="text-white font-medium">Say sưa giảng bài</span>
+                    </div>
+                </div>
+                <div class="group relative rounded-2xl overflow-hidden shadow-lg aspect-[3/4]">
+                    <img src="images/3.jpg"
+                        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                        <span class="text-white font-medium">Tận tâm chỉ dẫn</span>
+                    </div>
+                </div>
+                <div class="group relative rounded-2xl overflow-hidden shadow-lg aspect-[3/4]">
+                    <img src="images/4.jpg"
+                        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                        <span class="text-white font-medium">Lịch lãm</span>
+                    </div>
+                </div>
+                <div class="group relative rounded-2xl overflow-hidden shadow-lg aspect-[3/4]">
+                    <img src="images/5.jpg"
+                        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                        <span class="text-white font-medium">Rạng rỡ</span>
+                    </div>
+                </div>
+                <div class="group relative rounded-2xl overflow-hidden shadow-lg aspect-[3/4]">
+                    <img src="images/6.jpg"
+                        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                        <span class="text-white font-medium">Gen Z Style</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-8 flex justify-center gap-4">
+                <button onclick="nextStep(2)"
+                    class="px-6 py-3 rounded-full text-slate-500 hover:bg-slate-100 transition-colors">
+                    <i class="fas fa-arrow-left"></i> Quay lại
+                </button>
+                <button onclick="nextStep(4)"
+                    class="px-8 py-3 bg-primary text-white font-bold rounded-full shadow-lg hover:bg-sky-600 transition-colors flex items-center gap-2">
+                    Đọc lời chúc <i class="fas fa-heart"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Step 4: Wishes -->
+    <div id="step-4" class="step-section fixed inset-0 flex-col items-center justify-center p-4 z-10">
+        <div class="container mx-auto max-w-6xl h-full flex flex-col justify-center">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl md:text-4xl font-bold text-dark">Lời nhắn gửi từ <span
+                        class="gradient-text">LE353</span></h2>
+            </div>
+
+            <div
+                class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-h-[60vh] overflow-y-auto p-2 custom-scrollbar">
+                <!-- Wish Cards -->
+                <div class="glass-card p-6 rounded-xl hover:-translate-y-1 transition-transform">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div
+                            class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-sm">
+                            S</div>
+                        <h3 class="font-bold text-dark">Sam sam</h3>
+                    </div>
+                    <p class="text-slate-600 text-sm">"Chúc thầy 20/11 thật vui và nhiều năng lượng. Cảm ơn thầy vì luôn
+                        tận tâm và dễ thương với tụi em. Chúc thầy lúc nào cũng thật hạnh phúc và tràn đầy cảm hứng ạ"
+                    </p>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl hover:-translate-y-1 transition-transform">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div
+                            class="w-8 h-8 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center font-bold text-sm">
+                            K</div>
+                        <h3 class="font-bold text-dark">Kiên sinh viên</h3>
+                    </div>
+                    <p class="text-slate-600 text-sm">"Chúc thầy luôn đẹp zai, 8386 mãi đỉnh, mãi đỉnh, mãi đỉnh luôn"
+                    </p>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl hover:-translate-y-1 transition-transform">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div
+                            class="w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center font-bold text-sm">
+                            M</div>
+                        <h3 class="font-bold text-dark">Minh Long</h3>
+                    </div>
+                    <p class="text-slate-600 text-sm">"Chúc thầy đẹp zai của em có nhiều sức khoẻ, nhiều niềm vui trong
+                        nghề giáo để có thể dìu dắt thêm nhiều thế hệ học sinh tiềm năng ạ. Em cảm ơn thầy rất nhiều ạ."
+                    </p>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl hover:-translate-y-1 transition-transform">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div
+                            class="w-8 h-8 rounded-full bg-yellow-100 text-yellow-600 flex items-center justify-center font-bold text-sm">
+                            H</div>
+                        <h3 class="font-bold text-dark">Hoàng</h3>
+                    </div>
+                    <p class="text-slate-600 text-sm">"Chúc thầy mãi đzai:v"</p>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl hover:-translate-y-1 transition-transform">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div
+                            class="w-8 h-8 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center font-bold text-sm">
+                            T</div>
+                        <h3 class="font-bold text-dark">Trinh</h3>
+                    </div>
+                    <p class="text-slate-600 text-sm">"Chúc thầy luôn giữ vững ngọn lửa đam mê và thành công hơn nữa
+                        trong sự nghiệp trồng người!"</p>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl hover:-translate-y-1 transition-transform">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div
+                            class="w-8 h-8 rounded-full bg-pink-100 text-pink-600 flex items-center justify-center font-bold text-sm">
+                            D</div>
+                        <h3 class="font-bold text-dark">Duy Huy</h3>
+                    </div>
+                    <p class="text-slate-600 text-sm">"Mong thầy luôn mạnh khỏe, vui vẻ và hạnh phúc bên gia đình và học
+                        trò."</p>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl hover:-translate-y-1 transition-transform">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div
+                            class="w-8 h-8 rounded-full bg-red-100 text-red-600 flex items-center justify-center font-bold text-sm">
+                            Q</div>
+                        <h3 class="font-bold text-dark">Quang Anh</h3>
+                    </div>
+                    <p class="text-slate-600 text-sm">"Chúc thầy 20/11 ý nghĩa, nhận được thật nhiều quà và lời chúc tốt
+                        đẹp nhất!"</p>
+                </div>
+            </div>
+
+            <div class="mt-8 flex justify-center gap-4">
+                <button onclick="nextStep(3)"
+                    class="px-6 py-3 rounded-full text-slate-500 hover:bg-slate-100 transition-colors">
+                    <i class="fas fa-arrow-left"></i> Quay lại
+                </button>
+                <button onclick="nextStep(5)"
+                    class="px-8 py-3 bg-gradient-to-r from-primary to-secondary text-white font-bold rounded-full shadow-lg hover:scale-105 transition-transform flex items-center gap-2">
+                    Lời kết <i class="fas fa-star"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Step 5: Outro -->
+    <div id="step-5" class="step-section fixed inset-0 flex-col items-center justify-center p-4 z-0">
+        <div class="text-center space-y-8">
+            <div
+                class="w-24 h-24 mx-auto bg-white rounded-full flex items-center justify-center shadow-xl animate-bounce">
+                <i class="fas fa-heart text-4xl text-red-500"></i>
+            </div>
+            <h2 class="text-4xl md:text-6xl font-bold text-dark">
+                Cảm ơn Thầy!
+            </h2>
+            <p class="text-xl text-slate-600 max-w-lg mx-auto">
+                Chúng em rất may mắn khi được là học trò của thầy. Chúc thầy một ngày 20/11 thật trọn vẹn.
+            </p>
+            <div class="pt-8">
+                <button onclick="nextStep(1)"
+                    class="px-8 py-3 bg-white border border-slate-200 text-slate-600 rounded-full hover:bg-slate-50 transition-colors">
+                    <i class="fas fa-redo"></i> Xem lại từ đầu
+                </button>
+            </div>
+            <div class="mt-12 text-sm text-slate-400">
+                Made with ❤️ by LE353
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="js/script.js"></script>
+</body>
+
+</html>
