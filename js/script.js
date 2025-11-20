@@ -40,6 +40,80 @@ document.addEventListener('DOMContentLoaded', () => {
             isPlaying = !isPlaying;
         });
     }
+
+    // Carousel Logic
+    const track = document.getElementById('carousel-track');
+    const slides = track ? Array.from(track.children) : [];
+    const nextButton = document.getElementById('next-slide');
+    const prevButton = document.getElementById('prev-slide');
+    const indicators = document.querySelectorAll('.indicator');
+    let currentSlideIndex = 0;
+    let carouselInterval;
+
+    function updateCarousel(index) {
+        if (!track) return;
+        track.style.transform = `translateX(-${index * 100}%)`;
+
+        indicators.forEach((ind, i) => {
+            if (i === index) {
+                ind.classList.add('active');
+            } else {
+                ind.classList.remove('active');
+            }
+        });
+        currentSlideIndex = index;
+    }
+
+    function nextSlide() {
+        let newIndex = currentSlideIndex + 1;
+        if (newIndex >= slides.length) newIndex = 0;
+        updateCarousel(newIndex);
+    }
+
+    function prevSlide() {
+        let newIndex = currentSlideIndex - 1;
+        if (newIndex < 0) newIndex = slides.length - 1;
+        updateCarousel(newIndex);
+    }
+
+    if (nextButton) {
+        nextButton.addEventListener('click', () => {
+            nextSlide();
+            resetCarouselInterval();
+        });
+    }
+
+    if (prevButton) {
+        prevButton.addEventListener('click', () => {
+            prevSlide();
+            resetCarouselInterval();
+        });
+    }
+
+    indicators.forEach((ind, i) => {
+        ind.addEventListener('click', () => {
+            updateCarousel(i);
+            resetCarouselInterval();
+        });
+    });
+
+    function startCarousel() {
+        if (carouselInterval) clearInterval(carouselInterval);
+        carouselInterval = setInterval(nextSlide, 3000);
+    }
+
+    function stopCarousel() {
+        if (carouselInterval) clearInterval(carouselInterval);
+    }
+
+    function resetCarouselInterval() {
+        stopCarousel();
+        startCarousel();
+    }
+
+    // Expose start/stop to global scope for nextStep function
+    window.startCarousel = startCarousel;
+    window.stopCarousel = stopCarousel;
 });
 
 // Navigation Function
@@ -64,10 +138,22 @@ function nextStep(stepNumber) {
         // Special actions for specific steps
         if (stepNumber === 2) {
             initTyped();
+            if (window.stopCarousel) window.stopCarousel();
+        } else if (stepNumber === 3) {
+            if (window.startCarousel) window.startCarousel();
+        } else {
+            if (window.stopCarousel) window.stopCarousel();
         }
 
         if (stepNumber === 5) {
             fireConfetti();
+        }
+
+        // Start carousel on step 3
+        if (stepNumber === 3) {
+            startCarousel();
+        } else {
+            stopCarousel();
         }
     }
 }

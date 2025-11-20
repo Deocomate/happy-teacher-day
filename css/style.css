@@ -105,3 +105,30 @@ body {
 	z-index: -1;
 	animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
 }
+
+/* Carousel Indicators */
+.indicator {
+	transition: all 0.3s ease;
+	opacity: 0.5;
+}
+
+.indicator.active {
+	opacity: 1;
+	transform: scale(1.2);
+	background-color: #fff;
+}
+
+/* Mobile Responsive Adjustments */
+@media (max-width: 768px) {
+	.step-section {
+		padding: 1rem;
+	}
+
+	h1 {
+		font-size: 2.5rem !important;
+	}
+
+	h2 {
+		font-size: 2rem !important;
+	}
+}
